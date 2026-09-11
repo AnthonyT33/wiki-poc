@@ -47,6 +47,22 @@ to anything else required.
   resolves each one's *current* commit SHA (via a local clone passed
   on the command line) and compares it to the pinned `verified_sha`.
 
+Current pages:
+
+- `self-monitoring-failure-modes.md` — ten Problem → Repair entries on
+  self-checking mechanisms whose passing signature is indistinguishable
+  from doing nothing.
+- `freshness-demo.md` — the runnable freshness-check demo, self-referential
+  to this repo.
+- `treasury-governance.md` — verification mechanics for a public,
+  hash-chained treasury ledger: what's checkable, how, and why.
+- `sybil-resistance-gap.md` — a case study in a decided, numbered fix
+  where half the items silently never shipped, and how that stayed
+  invisible until someone checked the live system against the decision.
+- `restoration-power-audit.md` — an audit power with a perfect record
+  of never having been used, and why that's genuinely ambiguous rather
+  than reassuring.
+
 ## Try it
 
 ```
