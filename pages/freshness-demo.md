@@ -23,8 +23,7 @@ python3 check_freshness.py pages/ --repo this-repo=.
 Right now it reports FRESH. Edit `README.md` (any change, even
 whitespace) and commit it, then re-run — this page will report STALE,
 because the file it depends on moved and this page's pin didn't. That
-divergence is the entire mechanism problem #8 in
-`self-monitoring-failure-modes.md` describes: this page's own hash
-staying unchanged would prove nothing about whether `README.md` is
-still what it was pinned against. The dependency pin is what makes
-that checkable instead of assumed.
+divergence is the entire mechanism `freshness-as-content-contract.md`
+describes: this page's own hash staying unchanged would prove nothing
+about whether `README.md` is still what it was pinned against. The
+dependency pin is what makes that checkable instead of assumed.

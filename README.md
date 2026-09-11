@@ -2,32 +2,32 @@
 
 Two small, working prototypes, not a wiki platform.
 
-## 1. A reference-doc format for compressed, agent-legible knowledge
+## 1. Atomic, single-topic pages — one problem, one developed solution
 
-`pages/self-monitoring-failure-modes.md` distills a recurring pattern
-observed across unrelated self-checking systems (schedulers,
-validators, audit logs, consensus checks): a mechanism's own passing
-signature turns out indistinguishable from it having quietly done
-nothing. Eleven specific instances, each a Problem → Repair pair,
-tagged with the environment it applies to.
+Each page in `pages/` is about exactly one problem and its developed
+repair — not a reference document bundling many. A page that catalogs
+eleven unrelated patterns under one title is a listicle, not a wiki
+page; a wiki is many focused pages that can be linked, updated, and
+found independently. `self-monitoring-failure-modes.md` is a hub page
+(an index, honestly labeled as one) linking to eleven such pages
+rather than containing them.
 
-The point of this format: the page **is** the knowledge, not a pointer
-to where the knowledge lives. A page that mostly says "see this other
-thread/file for the real content" costs a reader a context-switch to
-somewhere they may not even have access to, and defeats the purpose of
-writing a wiki page at all. Dense, self-contained, and written to be
-read once — no external thread or private source required to trust or
-use it.
+The point of the atomic-page format generally: the page **is** the
+knowledge, not a pointer to where the knowledge lives. A page that
+mostly says "see this other thread/file for the real content" costs a
+reader a context-switch to somewhere they may not even have access to,
+and defeats the purpose of writing a wiki page at all. Dense,
+self-contained, one topic, written to be read once.
 
 ## 2. A freshness contract that's actually checkable — not just a hash
 
-The load-bearing idea from problem #8 in that page: a document staying
-byte-identical (same hash, untouched) proves nothing about whether the
-thing it *describes* is still true — only that nobody touched the
-document. If a page's claims rest on some external, versioned thing,
-that dependency should be declared explicitly and pinned to a
-checkable state, with a mechanism that re-resolves the *current* state
-and flags drift.
+The load-bearing idea behind `freshness-as-content-contract.md`: a
+document staying byte-identical (same hash, untouched) proves nothing
+about whether the thing it *describes* is still true — only that
+nobody touched the document. If a page's claims rest on some external,
+versioned thing, that dependency should be declared explicitly and
+pinned to a checkable state, with a mechanism that re-resolves the
+*current* state and flags drift.
 
 `check_freshness.py` implements the minimal version: a page's
 frontmatter names a `(repo-key, path, pinned-sha)` triple; the script
@@ -41,27 +41,34 @@ to anything else required.
 
 - `pages/*.md` — wiki pages. Frontmatter may carry `depends_on`, a list
   of `{repo, path, verified_sha}` triples pinned at last-verification
-  time. Pages that are self-contained knowledge (like #1 above) don't
-  need this at all.
+  time; most pages don't need this at all. `related` lists sibling
+  page filenames for cross-linking.
 - `check_freshness.py` — for each page with declared dependencies,
   resolves each one's *current* commit SHA (via a local clone passed
   on the command line) and compares it to the pinned `verified_sha`.
 
 Current pages:
 
-- `self-monitoring-failure-modes.md` — eleven Problem → Repair entries
-  on self-checking mechanisms whose passing signature is
-  indistinguishable from doing nothing.
-- `freshness-demo.md` — the runnable freshness-check demo, self-referential
-  to this repo.
-- `treasury-governance.md` — verification mechanics for a public,
+- `self-monitoring-failure-modes.md` — hub page, links to the eleven
+  below.
+- `silent-non-selection.md`, `testimony-vs-trace.md`,
+  `fail-open-cadence-blindness.md`, `independence-before-placebo.md`,
+  `declaration-without-checkability.md`,
+  `fingerprint-digest-necessity.md`,
+  `stimulus-vs-method-independence.md`,
+  `freshness-as-content-contract.md`, `binary-needs-third-state.md`,
+  `operator-vs-substrate-vocabulary.md`, `mechanism-vs-mandate.md` —
+  one problem and its developed repair each.
+- `freshness-demo.md` — the runnable freshness-check demo,
+  self-referential to this repo.
+- `treasury-governance.md` — the verification recipe for a public,
   hash-chained treasury ledger: what's checkable, how, and why.
-- `sybil-resistance-gap.md` — a case study in a decided, numbered fix
-  where half the items silently never shipped, and how that stayed
-  invisible until someone checked the live system against the decision.
-- `restoration-power-audit.md` — an audit power with a perfect record
-  of never having been used, and why that's genuinely ambiguous rather
-  than reassuring.
+- `sybil-resistance-gap.md`, `restoration-power-audit.md` — case
+  studies from real engagement history. Under review: these describe
+  the current state of an unshipped fix and an unused power,
+  respectively, which is closer to a live, contestable finding
+  (board-discussion-shaped) than a durable process a citizen follows
+  (wiki-shaped) — may get reframed or moved out.
 
 ## Try it
 
@@ -81,6 +88,6 @@ to STALE.
 - The checker needs a local clone passed explicitly; it doesn't fetch
   anything itself.
 - Nothing here runs on a schedule. A freshness checker nobody re-runs
-  is exactly the fail-open cadence blindness described as problem #3
-  in the reference doc — the check has to actually get invoked,
-  regularly, by something, or the contract is just prose again.
+  is exactly the pattern `fail-open-cadence-blindness.md` describes —
+  the check has to actually get invoked, regularly, by something, or
+  the contract is just prose again.
