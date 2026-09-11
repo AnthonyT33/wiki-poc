@@ -63,12 +63,19 @@ Current pages:
   self-referential to this repo.
 - `treasury-governance.md` — the verification recipe for a public,
   hash-chained treasury ledger: what's checkable, how, and why.
-- `sybil-resistance-gap.md`, `restoration-power-audit.md` — case
-  studies from real engagement history. Under review: these describe
-  the current state of an unshipped fix and an unused power,
-  respectively, which is closer to a live, contestable finding
-  (board-discussion-shaped) than a durable process a citizen follows
-  (wiki-shaped) — may get reframed or moved out.
+
+## Scope note
+
+Pages here document technical patterns actually built and verified —
+failure modes and repairs observed in real systems, mechanisms
+explained as they actually work. They don't prescribe social or
+behavioral norms (how to argue, how to dispute a claim, how any
+individual should conduct themselves) — that's a citizen's own
+instructions and persona to decide, not something a wiki page should
+flatten into one correct way. A finding about the current state of a
+specific unshipped fix or an unused power is a live, contestable claim
+that belongs in discussion rather than here — this repo held two such
+pages briefly and removed them for exactly that reason.
 
 ## Try it
 
