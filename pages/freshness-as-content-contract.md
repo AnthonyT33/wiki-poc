@@ -16,9 +16,7 @@ true. An unchanged hash proves only that nothing touched the document
 thing, encode that dependency explicitly and pin it to a checkable
 state at verification time. A mechanism that re-resolves the
 dependency's *current* state and flags drift makes staleness checkable
-instead of assumed away — see `check_freshness.py` and
-`pages/freshness-demo.md` in this repo for a minimal, runnable version
-of exactly this.
+instead of assumed away.
 
 **Environment.** Documentation, wikis, any cached summary of a live
 external system.

@@ -1,6 +1,6 @@
 # wiki-poc
 
-Three small, working prototypes, not a wiki platform.
+Two page shapes, not a wiki platform.
 
 ## 1. Atomic, single-topic pages — one problem, one developed solution
 
@@ -19,29 +19,17 @@ reader a context-switch to somewhere they may not even have access to,
 and defeats the purpose of writing a wiki page at all. Dense,
 self-contained, one topic, written to be read once.
 
-## 2. A freshness contract that's actually checkable — not just a hash
+This rule scopes to *one system* rather than one sentence where the
+system itself is the topic — `treasury-governance.md` covers several
+sub-mechanisms (the booked/on-chain split, the hash-chain recipe, the
+spending waterfall, asset tiers) because they're all one verification
+story for one system, not unrelated patterns bundled for convenience.
 
-The load-bearing idea behind `freshness-as-content-contract.md`: a
-document staying byte-identical (same hash, untouched) proves nothing
-about whether the thing it *describes* is still true — only that
-nobody touched the document. If a page's claims rest on some external,
-versioned thing, that dependency should be declared explicitly and
-pinned to a checkable state, with a mechanism that re-resolves the
-*current* state and flags drift.
+## 2. Decision records — a second page shape, distinct from the first
 
-`check_freshness.py` implements the minimal version: a page's
-frontmatter names a `(repo-key, path, pinned-sha)` triple; the script
-resolves the current commit SHA for that path in a given local clone
-and reports FRESH or STALE. `pages/freshness-demo.md` demonstrates it
-against a file in *this same repo* — deliberately self-referential, so
-the demo is checkable by anyone who clones this repo, with no access
-to anything else required.
-
-## 3. Decision records — a third page shape, distinct from the other two
-
-A technical pattern page (#1) documents something true in general,
-verified across specimens. A decision record documents one specific,
-local choice: what was decided, the non-obvious reason a plausible
+A technical pattern page documents something true in general, verified
+across specimens. A decision record documents one specific, local
+choice: what was decided, the non-obvious reason a plausible
 alternative was ruled out, and the condition under which it should
 actually be revisited. It exists for exactly one failure mode: a board
 thread reaches a real, reasoned decision, the thread scrolls off, and
@@ -70,13 +58,8 @@ invented to fit the template's shape.
 
 ## Structure
 
-- `pages/*.md` — wiki pages. Frontmatter may carry `depends_on`, a list
-  of `{repo, path, verified_sha}` triples pinned at last-verification
-  time; most pages don't need this at all. `related` lists sibling
-  page filenames for cross-linking.
-- `check_freshness.py` — for each page with declared dependencies,
-  resolves each one's *current* commit SHA (via a local clone passed
-  on the command line) and compares it to the pinned `verified_sha`.
+- `pages/*.md` — wiki pages. `related` lists sibling page filenames
+  for cross-linking.
 
 Current pages:
 
@@ -90,8 +73,6 @@ Current pages:
   `freshness-as-content-contract.md`, `binary-needs-third-state.md`,
   `operator-vs-substrate-vocabulary.md`, `mechanism-vs-mandate.md` —
   one problem and its developed repair each.
-- `freshness-demo.md` — the runnable freshness-check demo,
-  self-referential to this repo.
 - `treasury-governance.md` — the verification recipe for a public,
   hash-chained treasury ledger: what's checkable, how, and why.
 - `decision-collapse-not-delete.md` — why moderation collapses or
@@ -111,24 +92,12 @@ specific unshipped fix or an unused power is a live, contestable claim
 that belongs in discussion rather than here — this repo held two such
 pages briefly and removed them for exactly that reason.
 
-## Try it
+## Status
 
-```
-python3 check_freshness.py pages/ --repo this-repo=.
-```
-
-Run from the repo root. `pages/freshness-demo.md` depends on
-`README.md` in `this-repo` — edit this file and re-run to see it flip
-to STALE.
-
-## Honest limits
-
-- Single dependency type implemented: "a file in a git repo, pinned to
-  a SHA." A live API response, a stated claim, or a moving consensus
-  would each need a different resolver.
-- The checker needs a local clone passed explicitly; it doesn't fetch
-  anything itself.
-- Nothing here runs on a schedule. A freshness checker nobody re-runs
-  is exactly the pattern `fail-open-cadence-blindness.md` describes —
-  the check has to actually get invoked, regularly, by something, or
-  the contract is just prose again.
+A proof of concept, not something in active use anywhere yet. Built
+to think through what a durable, agent-legible knowledge format could
+look like, separate from and prior to raising it as a live proposal —
+opening a problem to a community for solutions and then immediately
+presenting a finished answer isn't a good way to actually invite
+input. This exists to inform that conversation later, not to preempt
+it.
