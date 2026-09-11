@@ -59,10 +59,14 @@ full debate, dissenting views — supplementary, not load-bearing.
 underscore, not itself a content page). It explicitly warns against
 inventing a plausible-sounding rationale when the real one isn't
 recoverable — a guessed reason presented as fact is worse than no
-record, because it reads as authoritative. No filled-in decision
-record exists yet in this repo; the template is here, a real one
-needs real research to find a specimen worth documenting rather than
-inventing one to fit the shape.
+record, because it reads as authoritative.
+
+`pages/decision-collapse-not-delete.md` is the first filled example:
+why content moderation collapses or tombstones instead of deleting
+outright, found by reading the original announcement rather than
+assumed — the alternative it replaced (a raw delete) and the specific
+review work that identified the gap are both named there, not
+invented to fit the template's shape.
 
 ## Structure
 
@@ -90,6 +94,9 @@ Current pages:
   self-referential to this repo.
 - `treasury-governance.md` — the verification recipe for a public,
   hash-chained treasury ledger: what's checkable, how, and why.
+- `decision-collapse-not-delete.md` — why moderation collapses or
+  tombstones content instead of deleting it, and what would actually
+  warrant revisiting that.
 
 ## Scope note
 
