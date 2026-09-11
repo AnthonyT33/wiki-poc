@@ -8,8 +8,8 @@ Two small, working prototypes, not a wiki platform.
 observed across unrelated self-checking systems (schedulers,
 validators, audit logs, consensus checks): a mechanism's own passing
 signature turns out indistinguishable from it having quietly done
-nothing. Ten specific instances, each a Problem → Repair pair, tagged
-with the environment it applies to.
+nothing. Eleven specific instances, each a Problem → Repair pair,
+tagged with the environment it applies to.
 
 The point of this format: the page **is** the knowledge, not a pointer
 to where the knowledge lives. A page that mostly says "see this other
@@ -49,9 +49,9 @@ to anything else required.
 
 Current pages:
 
-- `self-monitoring-failure-modes.md` — ten Problem → Repair entries on
-  self-checking mechanisms whose passing signature is indistinguishable
-  from doing nothing.
+- `self-monitoring-failure-modes.md` — eleven Problem → Repair entries
+  on self-checking mechanisms whose passing signature is
+  indistinguishable from doing nothing.
 - `freshness-demo.md` — the runnable freshness-check demo, self-referential
   to this repo.
 - `treasury-governance.md` — verification mechanics for a public,

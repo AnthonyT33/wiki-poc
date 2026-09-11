@@ -9,7 +9,7 @@ as_of: 2026-09-11
 A recurring shape, across unrelated systems: a mechanism checks itself
 — a scheduler, a validator, an audit log, a consensus vote — and the
 check's own passing signature turns out indistinguishable from the
-mechanism having quietly done nothing. Ten specific, checkable
+mechanism having quietly done nothing. Eleven specific, checkable
 instances of that shape, each with a problem, the repair, and where it
 bites.
 
@@ -72,11 +72,21 @@ runs shares its source with the thing being tested. The comparison
 then measures the shared substrate's own variance, not the detector's
 actual discriminating power.
 
-**Repair.** Establish independence between the test's ground truth and
-the instrument under test *before* running any placebo comparison. A
-placebo cannot rescue an instrument whose ground truth shares
-provenance with what it's testing — it's a precondition, not something
-the placebo itself can validate.
+**The result is locally real, just not portable.** A placebo score
+computed this way isn't meaningless — it's a fully interpretable
+statement about the matcher's behavior *on this substrate*: it can
+correctly reveal that a detector's trigger condition is too broad,
+too narrow, or non-distinctive for the data it's actually seeing. What
+it can't do, without independence, is license generalizing that number
+into a claim about the detector's validity anywhere else. Independence
+is the gate on *promoting* a local diagnostic to a general claim, not
+a precondition for the diagnostic having any value at all — a sharper
+line than "worthless without it."
+
+**Repair.** Run the placebo, trust what it says about this substrate,
+and stop there until ground-truth independence is established.
+Promoting "non-distinctive here" to "non-distinctive as a detector"
+needs the independent check; the local diagnostic doesn't.
 
 **Environment.** Validating classifiers/detectors, any self-graded
 evaluation pipeline.
@@ -105,13 +115,33 @@ carries a stable, unconditional locator to the thing it describes plus
 a fixed processing identity (the same parser/pipeline every time), the
 hash adds no discrimination a reader doesn't already have.
 
-**Repair.** A digest earns its place only when the processing pipeline
-can vary per record, or the record lacks a stable locator to what it
-describes. Otherwise, locator + fixed header already is the complete
-binding, and the digest is redundant with it.
+**The precise no-digest condition is three-part, not two.** A locator
+alone can be insufficient even with a fixed pipeline: a single
+function or entry point can process several distinct instances of the
+thing being described, and one instance can change while still
+routing through the same named function — so "same function name"
+doesn't guarantee "same instance." The digest is genuinely redundant
+only when all three hold together: (1) the processing/normalization
+identity is fixed and declared once, not per-row, (2) each record
+carries a locator specific to the *instance*, not just the function
+that handled it, and (3) the rendered value is unconditional — always
+computed, never gated behind a flag that could leave it stale.
+Collapsing this to "locator plus fixed header" undercounts a real
+failure mode: two instances sharing one entry point, silently
+conflated.
+
+**Repair.** A digest earns its place when any of the three fails —
+variable pipeline, instance-ambiguous locator, or a conditionally
+computed value. Where a digest is added, fingerprint the
+proposition/instance identity itself (or the parser/normalization
+spec), not the surface value alone — a value digest is redundant
+beside the value it hashes; a binding digest, tied to instance
+identity, is not.
 
 **Environment.** Provenance/integrity schemas, any record format
-deciding whether to add a hash column.
+deciding whether to add a hash column, especially where one function
+or pipeline stage can legitimately process more than one instance of
+the thing being tracked.
 
 ## 7. Stimulus-independence vs. method-independence
 
@@ -175,3 +205,27 @@ changes to either layer.
 
 **Environment.** Any system where people describe machine behavior in
 higher-level terms than the machine's own logs use.
+
+## 11. Mechanism vs. mandate
+
+**Problem.** A gate that enforces *where* an action is allowed to
+land (a directory boundary, a network scope, a write-permission check)
+is a different axis entirely from *why* the action was taken — whose
+authority it acts under, and where that authority can be withdrawn.
+Systems routinely build the first and treat it as covering the
+second. It doesn't: a mechanically-bounded action can still be taken
+for the wrong reason, and a well-reasoned action can still land
+somewhere the mechanism should have refused. Passing the mechanism
+check proves nothing about the mandate, and vice versa.
+
+**Repair.** Keep the two as separate, explicit checks rather than
+treating a strong mechanism as implicit proof of a valid mandate. The
+mandate check is textual/relational, not positional: does the record
+of this action name who authorized it and where that authorization
+can be withdrawn — a question a directory-scoped or permission-scoped
+gate cannot answer by construction, however tightly it's built.
+
+**Environment.** Any agent or process acting under delegated
+authority with its own enforced operating boundary — the boundary
+answers "could this happen here," never "should this have happened at
+all."
