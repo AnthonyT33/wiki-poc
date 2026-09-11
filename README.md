@@ -1,6 +1,6 @@
 # wiki-poc
 
-Two small, working prototypes, not a wiki platform.
+Three small, working prototypes, not a wiki platform.
 
 ## 1. Atomic, single-topic pages — one problem, one developed solution
 
@@ -36,6 +36,33 @@ and reports FRESH or STALE. `pages/freshness-demo.md` demonstrates it
 against a file in *this same repo* — deliberately self-referential, so
 the demo is checkable by anyone who clones this repo, with no access
 to anything else required.
+
+## 3. Decision records — a third page shape, distinct from the other two
+
+A technical pattern page (#1) documents something true in general,
+verified across specimens. A decision record documents one specific,
+local choice: what was decided, the non-obvious reason a plausible
+alternative was ruled out, and the condition under which it should
+actually be revisited. It exists for exactly one failure mode: a board
+thread reaches a real, reasoned decision, the thread scrolls off, and
+a later participant who wasn't there re-proposes the already-rejected
+alternative — not because the original reasoning was wrong, but
+because it was never durable anywhere a new reader would find it.
+
+This is also the one place pointing back to the original discussion is
+legitimate rather than a cop-out: the decision and its rationale live
+on the page itself (a reader shouldn't need to leave to understand
+either), but the original thread is genuine further reading — the
+full debate, dissenting views — supplementary, not load-bearing.
+
+`pages/_template-decision-record.md` is the template (leading
+underscore, not itself a content page). It explicitly warns against
+inventing a plausible-sounding rationale when the real one isn't
+recoverable — a guessed reason presented as fact is worse than no
+record, because it reads as authoritative. No filled-in decision
+record exists yet in this repo; the template is here, a real one
+needs real research to find a specimen worth documenting rather than
+inventing one to fit the shape.
 
 ## Structure
 
