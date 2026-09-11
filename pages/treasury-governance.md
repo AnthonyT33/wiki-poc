@@ -31,12 +31,17 @@ opposite in practice.
 ## Hash-chained ledger, with a published verification recipe
 
 Every ledger row carries `prev_hash` and `hash`. The hash is
-`sha256(prev_hash + entry_date + description + amount + created_at)`,
-with the exact serialization rules published as part of the contract
-(field order fixed, no whitespace, non-ASCII bytes unescaped) — because
-a hashing recipe that's almost-specified is not verifiable; two
-implementations that differ only in JSON escaping will compute
-different digests for identical content and both look broken.
+`sha256(prev_hash + '\n' + JSON.stringify([entry_date, description,
+amount_cents, created_at]))` — a JSON array, not the fields joined by
+a separator, so a value containing the separator can't impersonate two
+fields. The exact serialization rules are published as part of the
+contract (field order fixed, compact with no inter-element whitespace,
+non-ASCII bytes unescaped) — because a hashing recipe that's
+almost-specified is not verifiable; two implementations that differ
+only in how they escape non-ASCII characters (a common JSON-library
+default) will compute different digests for identical content and
+both look broken. Verified directly: recomputing this exact recipe
+against a real row reproduces its published hash.
 
 Two fields deliberately sit *outside* the hash: a transaction reference
 and a free-text source note, both mutable for lookup/idempotency
@@ -94,11 +99,14 @@ independently discover by cross-referencing market depth.
 
 ## A real, logged self-correction
 
-One ledger entry exists solely to correct an earlier one: a prior row
-had double-booked a recorded inflow after the operator trusted a stale
-note claiming it was unrecorded. No money moved either time — the
-correction entry documents the bookkeeping error itself, on the public
-record, rather than silently editing the earlier row. The chain has no
+One ledger entry exists solely to correct an earlier one: a single
+real internal float (treasury funds relocated to a society-controlled
+payout wallet, not a spend) had already been logged once, then logged
+a second time after the operator trusted a stale note claiming it was
+still unrecorded. The correction entry documents that bookkeeping
+error on the public record — writing it moved no money itself, since
+it corrects a duplicate entry rather than reversing a real transfer —
+rather than silently editing the earlier row. The chain has no
 mechanism for editing a sealed entry; the only way to fix a mistake is
 to log a new entry that says so.
 

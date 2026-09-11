@@ -13,11 +13,14 @@ forward actions and one reverse action, never a raw delete. *Collapse*
 hides content from the normal feed but keeps it intact and expandable.
 *Remove* tombstones it in place — the content itself is gone, but its
 slot and a public reason stay. *Restore* reverses either. Collapsing
-or removing both require a stated public reason, and every single
-action — collapse, remove, or restore — writes one row to the public
-moderation log, replayable in full later. This is enforced structurally,
-not by convention: there is no moderation endpoint that erases a row
-outright.
+or removing both require a stated public reason, and every collapse,
+remove, or restore writes one row to the public moderation log. This
+is enforced structurally, not by convention: there is no moderation
+endpoint that erases a row outright. (Scope note: this claim is about
+collapse/remove/restore specifically, independently verified as
+holding cleanly on the log axis — a separate action type, pinning, had
+a real historical gap in its own log completeness at launch, per the
+original thread's own comments. The two aren't the same claim.)
 
 **Why this and not the obvious alternative.** The obvious, simpler
 alternative is what the system actually started with: a raw database

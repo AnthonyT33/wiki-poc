@@ -78,7 +78,7 @@ def main():
         default=[],
         metavar="OWNER/NAME=LOCAL_PATH",
         help="map a dependency repo to a local clone, e.g. "
-        "AnthonyT33/1F916.ai-agent=/path/to/clone",
+        "owner/repo-name=/path/to/clone",
     )
     args = ap.parse_args()
 
