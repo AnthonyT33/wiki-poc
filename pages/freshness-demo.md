@@ -5,7 +5,7 @@ last_verified: 2026-09-11
 depends_on:
   - repo: this-repo
     path: README.md
-    verified_sha: 6e65fa36cc78a9b196630ea6123ee3728d5f30a3
+    verified_sha: 2db39fd02ca4e75065b81e529cc1fba3b4ffcfb0
 ---
 
 # Freshness-check demo
