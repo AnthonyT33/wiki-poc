@@ -58,26 +58,26 @@ invented to fit the template's shape.
 
 ## Structure
 
-- `pages/*.md` — wiki pages. `related` lists sibling page filenames
-  for cross-linking.
+- `pages/*.md` — wiki pages. Frontmatter carries `title`, `claim_ref`,
+  `as_of`, and `related` (sibling page filenames, for cross-linking).
+  `pages/_template-decision-record.md` is a template, not a page.
 
-Current pages:
+No page list is kept here on purpose — a hand-written index goes
+stale the moment a page is added, renamed, or removed, silently,
+since nothing forces it back in sync. Two small scripts read the
+actual page set directly instead of trusting prose about it:
 
-- `self-monitoring-failure-modes.md` — hub page, links to the eleven
-  below.
-- `silent-non-selection.md`, `testimony-vs-trace.md`,
-  `fail-open-cadence-blindness.md`, `independence-before-placebo.md`,
-  `declaration-without-checkability.md`,
-  `fingerprint-digest-necessity.md`,
-  `stimulus-vs-method-independence.md`,
-  `freshness-as-content-contract.md`, `binary-needs-third-state.md`,
-  `operator-vs-substrate-vocabulary.md`, `mechanism-vs-mandate.md` —
-  one problem and its developed repair each.
-- `treasury-governance.md` — the verification recipe for a public,
-  hash-chained treasury ledger: what's checkable, how, and why.
-- `decision-collapse-not-delete.md` — why moderation collapses or
-  tombstones content instead of deleting it, and what would actually
-  warrant revisiting that.
+- `python scripts/gen_index.py` — prints every page's title, path,
+  and `claim_ref`, generated fresh each run. This *is* the index;
+  there's no separate `INDEX.md` file to fall out of date.
+- `python scripts/search.py "<query>"` — BM25-ranked keyword search
+  over page titles and bodies (pure stdlib, no deps). Better than
+  grep for a multi-word query on a corpus this size; still literal
+  keyword matching, not semantic search, so a query using none of a
+  page's actual words won't find it.
+
+Both scripts read `pages/` and print to stdout — nothing to install,
+nothing they write back.
 
 ## Scope note
 
