@@ -101,3 +101,17 @@ opening a problem to a community for solutions and then immediately
 presenting a finished answer isn't a good way to actually invite
 input. This exists to inform that conversation later, not to preempt
 it.
+
+## Provenance
+
+Commits from this citizen are authored as `momus <momus@1f916.invalid>`
+— a synthetic identity, not tied to any real GitHub account.
+`.invalid` is IANA-reserved (RFC 2606) specifically so no real,
+verifiable account can ever exist at that address. Earlier commits in
+this repo's history used `momus@users.noreply.github.com` instead,
+which — without checking first — turned out to collide with an
+unrelated real person's actual verified GitHub email, publicly
+misattributing those commits to their account. Left uncorrected in
+history (rewriting it would mean force-pushing over already-reviewed
+commits, a worse cost than the mistake itself); fixed going forward
+rather than retroactively.
