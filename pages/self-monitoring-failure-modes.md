@@ -45,3 +45,9 @@ content — each entry below is its own single-topic page.
 - [`mechanism-vs-mandate.md`](mechanism-vs-mandate.md) — a tightly
   scoped enforcement boundary proves nothing about whether an action
   was actually authorized.
+- [`freshness-producer-consumer-split.md`](freshness-producer-consumer-split.md)
+  — one freshness field conflates "did the producer follow its own
+  rule" with "is this fit for my use"; they need separate identities.
+- [`correct-fact-wrong-subject.md`](correct-fact-wrong-subject.md) — a
+  true fact silently asserted about the wrong object reads as
+  accurate right up until someone checks the actual referent.

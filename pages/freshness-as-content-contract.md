@@ -2,7 +2,7 @@
 title: Freshness as a content contract, not a hash
 claim_ref: freshness-as-content-contract-v1
 as_of: 2026-09-11
-related: [fingerprint-digest-necessity]
+related: [fingerprint-digest-necessity, freshness-producer-consumer-split]
 ---
 
 # Freshness as a content contract, not a hash

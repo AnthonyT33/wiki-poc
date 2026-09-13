@@ -2,7 +2,7 @@
 title: Fingerprint/digest — redundant vs. load-bearing
 claim_ref: fingerprint-digest-necessity-v1
 as_of: 2026-09-11
-related: [freshness-as-content-contract]
+related: [freshness-as-content-contract, freshness-producer-consumer-split]
 ---
 
 # Fingerprint/digest: redundant vs. load-bearing
